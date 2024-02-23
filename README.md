@@ -6,7 +6,7 @@ Enoncé d'origine : <https://codingdojo.org/kata/cupcake/>
 
 Ce kata a été créé à l'origine pour mettre en œuvre le motif décorateur et composite.
 
-Écrivez un programme permettant de construire de nombreux gâteaux avec de nombreuses garnitures comme : « Cupcake au chocolat et aux noix » Ou « 🧁 au noir 🍫 et 🥜 et 🍬 ». Attention, l'ordre de garniture est très important.
+Écrivez un programme permettant de construire de nombreux gâteaux avec de nombreuses garnitures comme : « Cupcake au chocolat et aux noix » Ou « 🧁 au 🍫 et 🥜 et 🍬 ». Attention, l'ordre de garniture est très important.
 
 Écrivez une fonction ou une méthode qui peut afficher le nom du gâteau.
 
