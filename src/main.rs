@@ -62,4 +62,11 @@ mod tests {
     assert_eq!(sut.price(), 230);
     assert_eq!(sut.description(), "🍪 with 🍫 and 🥜");
   }
+
+  #[test]
+  fn test_bundle() {
+    let sut = bundle!(Cookie, chocolate!(Cupcake), nuts!(Cupcake));
+    assert_eq!(sut.price(), 387);
+    assert_eq!(sut.description(), "🍪, 🧁 with 🍫, 🧁 with 🥜");
+  }
 }
