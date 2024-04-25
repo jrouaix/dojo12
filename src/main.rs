@@ -1,95 +1,15 @@
-use std::vec;
-
 mod impls;
-pub(crate) use impls::*;
 mod traits;
 pub(crate) use traits::*;
 mod automagic;
 pub(crate) use automagic::*;
 
-// trait Cake {
-//   fn price(&self) -> usize;
-//   fn name(&self) -> String {
-//     self
-//       .name_accumulator()
-//       .into_iter()
-//       .fold((0, String::new()), |(position, mut s), n| {
-//         match position {
-//           0 => s.push_str(&n),
-//           1 => s.push_str(&format!(" with {n}")),
-//           _ => s.push_str(&format!(" and {n}")),
-//         }
-//         (position + 1, s)
-//       })
-//       .1
-//   }
-//   fn name_accumulator(&self) -> Vec<String> {
-//     vec![self.name_constant().into()]
-//   }
-//   fn name_constant(&self) -> &'static str;
-// }
-
-// struct Cookie;
-// impl Cake for Cookie {
-//   fn price(&self) -> usize {
-//     200
-//   }
-
-//   fn name_constant(&self) -> &'static str {
-//     "🍪"
-//   }
-// }
-
-// struct Cupcake;
-// impl Cake for Cupcake {
-//   fn price(&self) -> usize {
-//     100
-//   }
-
-//   fn name_constant(&self) -> &'static str {
-//     "🧁"
-//   }
-// }
-
-// struct Chocolate<C: Cake>(C);
-// impl<C: Cake> Cake for Chocolate<C> {
-//   fn price(&self) -> usize {
-//     &self.0.price() + 10
-//   }
-
-//   fn name_constant(&self) -> &'static str {
-//     "🍫"
-//   }
-
-//   fn name_accumulator(&self) -> Vec<String> {
-//     let mut vec = self.0.name_accumulator();
-//     vec.push(self.name_constant().into());
-//     vec
-//   }
-// }
-
-// struct Nuts<C: Cake>(C);
-// impl<C: Cake> Cake for Nuts<C> {
-//   fn price(&self) -> usize {
-//     &self.0.price() + 20
-//   }
-
-//   fn name_constant(&self) -> &'static str {
-//     "🥜"
-//   }
-
-//   fn name_accumulator(&self) -> Vec<String> {
-//     let mut vec = self.0.name_accumulator();
-//     vec.push(self.name_constant().into());
-//     vec
-//   }
-// }
-
 fn main() {}
-// tests module
+
 #[cfg(test)]
 mod tests {
   use super::*;
+  pub(crate) use impls::*;
   use pretty_assertions::assert_eq;
 
   #[test]
@@ -110,35 +30,35 @@ mod tests {
 
   #[test]
   fn test_cupcake_with_chocolate() {
-    let sut = Chocolate::new(Cupcake);
+    let sut = chocolate!(Cupcake);
     assert_eq!(sut.price(), 110);
     assert_eq!(sut.description(), "🧁 with 🍫");
   }
 
   #[test]
   fn test_cookie_with_chocolate() {
-    let sut = Chocolate::new(Cookie);
+    let sut = chocolate!(Cookie);
     assert_eq!(sut.price(), 210);
     assert_eq!(sut.description(), "🍪 with 🍫");
   }
 
   #[test]
   fn test_cookie_with_nuts() {
-    let sut = Nuts::new(Cookie);
+    let sut = nuts!(Cookie);
     assert_eq!(sut.price(), 220);
     assert_eq!(sut.description(), "🍪 with 🥜");
   }
 
   #[test]
   fn test_cookie_with_nuts_and_chocolate() {
-    let sut = Chocolate::new(Nuts::new(Cookie));
+    let sut = chocolate!(nuts!(Cookie));
     assert_eq!(sut.price(), 230);
     assert_eq!(sut.description(), "🍪 with 🥜 and 🍫");
   }
 
   #[test]
   fn test_cookie_with_chocolate_and_nuts() {
-    let sut = Nuts::new(Chocolate::new(Cookie));
+    let sut = nuts!(chocolate!(Cookie));
     assert_eq!(sut.price(), 230);
     assert_eq!(sut.description(), "🍪 with 🍫 and 🥜");
   }
